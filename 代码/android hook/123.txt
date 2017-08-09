@@ -1,0 +1,37 @@
+实现的功能仍然是利用ptrace函数将des进程暂停
+
+1.安装virtualBox	
+2.注册genymotion账号并安装genymotion
+
+3.安装adb(这个很重要，注意设置环境变量)
+	这个在android-sdk/platform-tools/adb.exe找的到。所以设置环境变量就行了
+
+4.在linux下进行编译然后将编译后的文件push进模拟器中即可运行
+	gcc -o filename filename.c -static(利用静态编译-static)
+	example:
+		gcc -o des des.c -static
+		gcc -o ptrace ptrace.c - static 
+
+	adb push <local> <destination>
+		这一步是将gcc编译的二进制文件push到android文件夹中
+	example:
+		adb push C:\Users\lenovo\Desktop\des dev/
+
+	然后进入adb shell 
+	cd /dev
+
+	chmod 777 filename
+		这里是赋予可执行权限
+		example:
+			chmod 777 des
+	./filename
+		example:
+			./des
+		这里是运行
+
+5.首先运行des试一下，看看具体过程
+6.然后开三个cmd 进入到同一个目录
+7。一个cmd 运行./des
+第二个		运行ps 查看des的pid 
+第三个运行 ./ptrace <获得的pid>
+可以发现des进程被暂停
